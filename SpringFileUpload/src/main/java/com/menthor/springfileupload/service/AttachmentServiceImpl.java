@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+
 @Service
 public class AttachmentServiceImpl implements AttachmentService{
 
@@ -23,16 +25,12 @@ public class AttachmentServiceImpl implements AttachmentService{
             if(fileName.contains("..")){
                 throw new Exception("Filename contains invalid path sequence" + fileName);
             }
-            Attachment attachment = new Attachment(fileName, file.getContentType(),file.getBytes());
+            Attachment attachment = new Attachment(fileName, file.getContentType(),file.getBytes(), LocalDate.now());
             return attachmentRepository.save(attachment);
 
         }catch(Exception e){
             throw new Exception("Could not save File" + fileName);
         }
-
-
-
-
     }
 
     @Override
