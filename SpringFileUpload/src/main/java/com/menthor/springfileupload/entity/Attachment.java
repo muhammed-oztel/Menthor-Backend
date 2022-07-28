@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import java.time.LocalDate;
 
 @Entity
 @Data@NoArgsConstructor
@@ -22,6 +23,7 @@ public class Attachment {
     private String fileType;
     @Lob
     private byte[] data;
+    private LocalDate localDate;
 
     public Attachment(String fileName, String fileType, byte[] data) {
         this.fileName = fileName;
@@ -29,5 +31,10 @@ public class Attachment {
         this.data = data;
     }
 
-
+    public Attachment(String fileName, String fileType, byte[] data, LocalDate localDate) {
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.data = data;
+        this.localDate = localDate;
+    }
 }

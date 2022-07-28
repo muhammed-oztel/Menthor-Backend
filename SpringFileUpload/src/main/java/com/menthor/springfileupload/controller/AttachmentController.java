@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.awt.*;
+import java.time.LocalDate;
 
 @RestController
 public class AttachmentController {
@@ -36,7 +37,8 @@ public class AttachmentController {
         return new ResponseData(attachment.getFileName(),
                 downloadURL,
                 file.getContentType(),
-                file.getSize()
+                file.getSize(),
+                LocalDate.now()
                 );
     }
 
