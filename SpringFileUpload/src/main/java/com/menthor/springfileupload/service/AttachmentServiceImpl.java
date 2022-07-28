@@ -38,4 +38,14 @@ public class AttachmentServiceImpl implements AttachmentService{
         return attachmentRepository.findById(fileId)
                 .orElseThrow(() -> new Exception("File not found with Id: " + fileId));
     }
+
+    @Override
+    public void deleteFile(String id) {
+        boolean exists = attachmentRepository.existsById(id);
+        if (!exists){
+            throw new IllegalStateException("File with id" + id + "does not exist");
+        }
+        attachmentRepository.deleteById(id);
+
+    }
 }
