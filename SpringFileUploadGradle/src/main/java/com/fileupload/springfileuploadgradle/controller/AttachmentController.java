@@ -59,8 +59,9 @@ public class AttachmentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteFile(@PathVariable ("id") String id){
+    public String deleteFile(@PathVariable ("id") String id){
         attachmentService.deleteFile(id);
+        return "You successfully deleted the file.";
     }
 
 }
