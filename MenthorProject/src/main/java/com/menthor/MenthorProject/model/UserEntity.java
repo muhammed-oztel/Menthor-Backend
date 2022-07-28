@@ -1,7 +1,5 @@
 package com.menthor.MenthorProject.model;
 
-import org.springframework.context.annotation.Primary;
-
 import javax.persistence.*;
 import java.util.*;
 
