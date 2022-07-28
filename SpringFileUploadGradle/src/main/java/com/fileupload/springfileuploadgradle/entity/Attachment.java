@@ -46,4 +46,12 @@ public class Attachment {
         this.data = data;
         this.localDate = localDate;
     }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 }
