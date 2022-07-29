@@ -17,6 +17,7 @@ public class ResponseData {
     private String fileType;
     private long fileSize;
     private LocalDate localDate;
+    private String message;
 
 
 }
