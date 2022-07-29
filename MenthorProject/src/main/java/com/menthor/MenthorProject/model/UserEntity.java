@@ -34,6 +34,8 @@ public class UserEntity {
     @Column(name = "role")
     private String role;
 
+    private Boolean enabled;
+
     public Long getId() {
         return id;
     }
@@ -104,5 +106,13 @@ public class UserEntity {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

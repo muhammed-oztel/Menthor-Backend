@@ -20,4 +20,9 @@ public class UserController {
     public UserDto.Response Register(@RequestBody UserEntity user){
         return userService.Register(user);
     }
+
+    @PostMapping("/confirm-account")
+    public UserDto.Response ConfirmUserAccount(@RequestParam String token){
+        return userService.ConfirmAccount(token);
+    }
 }
