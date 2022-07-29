@@ -30,8 +30,7 @@ public class AttachmentController {
         attachment = attachmentService.saveAttachment(file,uploader_id);
         downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/download/")
-                .path (attachment.getId().toString())
-                //.path (attachment.getId())
+                .path (attachment.getId())
                 .toUriString();
 
 
@@ -46,7 +45,7 @@ public class AttachmentController {
     }
 
     @GetMapping("download/{fileId}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable Long fileId) throws Exception {
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) throws Exception {
         Attachment attachment = null;
         attachment = attachmentService.getAttachment(fileId);
         return ResponseEntity.ok()
@@ -60,7 +59,7 @@ public class AttachmentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteFile(@PathVariable ("id") Long id){
+    public String deleteFile(@PathVariable ("id") String id){
         attachmentService.deleteFile(id);
         return "You successfully deleted the file.";
     }

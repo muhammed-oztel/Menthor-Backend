@@ -29,18 +29,18 @@ public class AttachmentServiceImpl implements AttachmentService{
             return attachmentRepository.save(attachment);
 
         }catch(Exception e){
-            throw new Exception("Could not save File " + fileName);
+            throw new Exception("Could not save File" + fileName);
         }
     }
 
     @Override
-    public Attachment getAttachment(Long fileId) throws Exception {
+    public Attachment getAttachment(String fileId) throws Exception {
         return attachmentRepository.findById(fileId)
                 .orElseThrow(() -> new Exception("File not found with Id: " + fileId));
     }
 
     @Override
-    public void deleteFile(Long id) {
+    public void deleteFile(String id) {
         boolean exists = attachmentRepository.existsById(id);
         if (!exists){
             throw new IllegalStateException("File with id" + id + "does not exist");
