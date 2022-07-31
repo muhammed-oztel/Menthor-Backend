@@ -41,7 +41,8 @@ public class AttachmentController {
                 downloadURL,
                 file.getContentType(),
                 file.getSize(),
-                LocalDate.now()
+                LocalDate.now(),
+                "You have successfully uploaded the file."
         );
     }
 
