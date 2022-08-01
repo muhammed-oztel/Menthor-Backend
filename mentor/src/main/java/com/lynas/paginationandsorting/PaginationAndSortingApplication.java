@@ -1,4 +1,6 @@
 package com.lynas.paginationandsorting;
+import com.lynas.paginationandsorting.Entity.MentorSearch;
+import com.lynas.paginationandsorting.Repository.MentorSearchRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,18 +15,18 @@ public class PaginationAndSortingApplication {
     }
 
     @Bean
-    public CommandLineRunner init(StudentRepository repository) {
+    public CommandLineRunner init(MentorSearchRepository repository) {
         return args -> {
-            repository.save(new Student(1, "sazzad"));
-            repository.save(new Student(2, "Rony"));
-            repository.save(new Student(3, "Naim"));
-            repository.save(new Student(4, "Dania"));
-            repository.save(new Student(5, "Mamun"));
-            repository.save(new Student(6, "Rimi"));
-            repository.save(new Student(7, "Habib"));
-            repository.save(new Student(8, "Shail"));
-            repository.save(new Student(9, "Pranjol"));
-            repository.save(new Student(10, "Shohag"));
+            repository.save(new MentorSearch(1, "sazzad"));
+            repository.save(new MentorSearch(2, "Rony"));
+            repository.save(new MentorSearch(3, "Naim"));
+            repository.save(new MentorSearch(4, "Dania"));
+            repository.save(new MentorSearch(5, "Mamun"));
+            repository.save(new MentorSearch(6, "Rimi"));
+            repository.save(new MentorSearch(7, "Habib"));
+            repository.save(new MentorSearch(8, "Shail"));
+            repository.save(new MentorSearch(9, "Pranjol"));
+            repository.save(new MentorSearch(10, "Shohag"));
         };
     }
 }
