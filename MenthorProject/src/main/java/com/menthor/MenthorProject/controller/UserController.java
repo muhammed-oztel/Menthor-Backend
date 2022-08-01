@@ -25,4 +25,19 @@ public class UserController {
     public UserDto.Response ConfirmUserAccount(@RequestParam String token){
         return userService.ConfirmAccount(token);
     }
+
+    @PutMapping("/update/{id}")
+    public UserDto.Response Update(@PathVariable Long id, @RequestBody UserEntity user){
+        return userService.Update(id, user);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public UserDto.Response Delete(@PathVariable Long id){
+        return userService.Delete(id);
+    }
+
+    @GetMapping("/all/{role}/{deleted}")
+    public List<UserEntity> ListByRole(@PathVariable String role, @PathVariable Boolean deleted){
+        return userService.ListByRole(role, deleted);
+    }
 }

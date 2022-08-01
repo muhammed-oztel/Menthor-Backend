@@ -36,6 +36,8 @@ public class UserEntity {
 
     private Boolean enabled;
 
+    private Boolean deleted;
+
     public Long getId() {
         return id;
     }
@@ -114,5 +116,13 @@ public class UserEntity {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

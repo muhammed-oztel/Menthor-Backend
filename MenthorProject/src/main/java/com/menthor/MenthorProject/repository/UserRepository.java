@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     public List<UserEntity> findByEmail(String email);
-    public List<UserEntity> findByPass(String pass);
     public List<UserEntity> findByPhone(String phone);
     public UserEntity findByEmailIgnoreCase(String email);
+    public List<UserEntity> findByRoleIgnoreCaseAndDeleted(String role, Boolean deleted);
 }

@@ -12,9 +12,8 @@ public class UserDetailEntity {
     @Column(name = "field")
     private String field;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
+    @Column
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -32,11 +31,11 @@ public class UserDetailEntity {
         this.field = field;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
