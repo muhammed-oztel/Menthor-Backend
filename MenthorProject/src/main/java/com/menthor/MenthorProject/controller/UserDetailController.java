@@ -6,7 +6,7 @@ import com.menthor.MenthorProject.service.UserDetailService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/userDetail")
 public class UserDetailController {
@@ -34,5 +34,10 @@ public class UserDetailController {
     @DeleteMapping("/delete/{id}")
     public UserDto.Response Delete(@PathVariable Long id){
         return userDetailService.Delete(id);
+    }
+
+    @GetMapping("/listId/{id}")
+    public List<UserDetailEntity> ListByUserId(@PathVariable Long id){
+        return userDetailService.ListByUserId(id);
     }
 }

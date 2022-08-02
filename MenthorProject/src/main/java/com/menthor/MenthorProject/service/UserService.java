@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -85,8 +86,12 @@ public class UserService {
         return response;
     }
 
-    public List<UserEntity> ListByRole(String role, Boolean deleted){
-        return userRepository.findByRoleIgnoreCaseAndDeleted(role, deleted);
+    public List<UserEntity> ListByRole(String role){
+        return userRepository.findByRoleIgnoreCaseAndDeleted(role, false);
+    }
+
+    public Optional<UserEntity> GetSingle(Long id){
+        return userRepository.findById(id);
     }
 
     //validations..
