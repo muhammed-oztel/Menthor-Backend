@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/menthor")
 public class AuthController {
     @Autowired
     private TokenManager tokenManager;
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest){
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
             return ResponseEntity.ok(tokenManager.generateToken(loginRequest.getUsername()));
         }catch (Exception e){
+            System.out.println("hataaaa");
             throw e;
         }
-
     }
 }
