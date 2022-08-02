@@ -6,7 +6,9 @@ import com.menthor.MenthorProject.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -36,8 +38,13 @@ public class UserController {
         return userService.Delete(id);
     }
 
-    @GetMapping("/all/{role}/{deleted}")
-    public List<UserEntity> ListByRole(@PathVariable String role, @PathVariable Boolean deleted){
-        return userService.ListByRole(role, deleted);
+    @GetMapping("/all/{role}")
+    public List<UserEntity> ListByRole(@PathVariable String role){
+        return userService.ListByRole(role);
+    }
+
+    @GetMapping("/single/{id}")
+    public Optional<UserEntity> GetSingle(@PathVariable Long id){
+        return userService.GetSingle(id);
     }
 }

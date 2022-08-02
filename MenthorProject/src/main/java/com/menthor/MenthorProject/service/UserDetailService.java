@@ -41,4 +41,8 @@ public class UserDetailService {
         response.setMessage("Alan Silindi.");
         return response;
     }
+
+    public List<UserDetailEntity> ListByUserId(Long id){
+        return userDetailRepository.findByUserId(id);
+    }
 }
