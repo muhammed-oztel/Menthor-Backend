@@ -72,7 +72,7 @@ public class UserService {
         userInfo.setPicture(user.getPicture());
         if (!(user.getEmail().equals(userInfo.getEmail())))
             userInfo.setEmail(user.getEmail());
-            changeEmail(userInfo);
+        changeEmail(userInfo);
         userRepository.save(userInfo);
         response.setMessage("Hesap Bilgileri Güncellendi.");
         return response;
@@ -92,6 +92,19 @@ public class UserService {
 
     public Optional<UserEntity> GetSingle(Long id){
         return userRepository.findById(id);
+    }
+
+    public List<UserEntity> Search(String name){
+        List<UserEntity> byName = userRepository.findByNameContainingIgnoreCaseAndRoleIgnoreCase(name, "mentor");
+        List<UserEntity> bySurname = userRepository.findBySurnameContainingIgnoreCaseAndRoleIgnoreCase(name, "mentor");
+        for (int i = 0; i < byName.size(); ++i){
+            for (int j=0; j < bySurname.size(); ++j){
+                if (byName.get(i).getId() == bySurname.get(j).getId())
+                    bySurname.remove(j);
+            }
+        }
+        byName.addAll(bySurname);
+        return byName;
     }
 
     //validations..

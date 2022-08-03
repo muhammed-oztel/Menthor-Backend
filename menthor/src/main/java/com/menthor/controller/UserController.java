@@ -47,4 +47,9 @@ public class UserController {
     public Optional<UserEntity> GetSingle(@PathVariable Long id){
         return userService.GetSingle(id);
     }
+
+    @GetMapping("/search/{name}")
+    public List<UserEntity> Search(@PathVariable String name){
+        return userService.Search(name);
+    }
 }

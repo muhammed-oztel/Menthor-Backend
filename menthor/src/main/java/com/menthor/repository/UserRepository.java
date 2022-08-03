@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     public List<UserEntity> findByPhone(String phone);
     public UserEntity findByEmailIgnoreCase(String email);
     public List<UserEntity> findByRoleIgnoreCaseAndDeleted(String role, Boolean deleted);
+    public List<UserEntity> findByNameContainingIgnoreCaseAndRoleIgnoreCase(String name, String role);
+    public List<UserEntity> findBySurnameContainingIgnoreCaseAndRoleIgnoreCase(String surname, String role2);
 }
