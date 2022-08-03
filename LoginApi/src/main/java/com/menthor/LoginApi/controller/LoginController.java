@@ -49,6 +49,7 @@ public class LoginController {
                     jwtResponse.setEmail(user.getEmail());
                     jwtResponse.setToken(token);
                     jwtResponse.setRole(user.getRole());
+                    jwtResponse.setId(user.getId());
                     return jwtResponse;
                 }
             }else {

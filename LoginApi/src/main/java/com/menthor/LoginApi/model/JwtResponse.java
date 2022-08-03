@@ -5,10 +5,20 @@ import java.util.List;
 
 @Data
 public class JwtResponse {
+    private Long id;
+
     private String email;
+
     private String token;
     private String role;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getEmail() {
         return email;
     }
