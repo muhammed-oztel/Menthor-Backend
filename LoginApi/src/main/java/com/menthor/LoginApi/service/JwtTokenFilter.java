@@ -1,4 +1,4 @@
-package com.menthor.LoginApi.auth;
+package com.menthor.LoginApi.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.Security;
 import java.util.ArrayList;
 
 @Component
@@ -21,31 +20,30 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        /**
+        /*
          * "Bearer 123hab123123
          */
         final String authHeader = request.getHeader("Authorization");
+        // System.out.println("-----------" + authHeader);
         String username = null;
         String token = null;
+
         if (authHeader != null && authHeader.contains("Bearer")){
-            token = authHeader.substring(7);
+            token = authHeader.substring(7);    // Token ı split yapar.
 
             try {
-                username = tokenManager.getUsernameFromToken(token);
+                username = tokenManager.getUsernameFromToken(token);    // Token dan username çekilir.
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }
         }
 
-        if (username != null && token != null
-                && SecurityContextHolder.getContext().getAuthentication() == null){
+        if (username != null && token != null && SecurityContextHolder.getContext().getAuthentication() == null){
+
             if (tokenManager.tokenValidate(token)){
-                UsernamePasswordAuthenticationToken upassToken =
-                        new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+                UsernamePasswordAuthenticationToken upassToken = new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
                 upassToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(upassToken);
             }

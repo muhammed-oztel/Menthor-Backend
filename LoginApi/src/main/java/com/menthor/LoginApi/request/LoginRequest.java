@@ -2,23 +2,23 @@ package com.menthor.LoginApi.request;
 
 public class LoginRequest {
 
-    private String username;
+    private String mail;
     private String password;
 
     public LoginRequest() {
     }
 
     public LoginRequest(String username, String password) {
-        this.username = username;
+        this.mail = username;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getMail() {
+        return mail;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getPassword() {

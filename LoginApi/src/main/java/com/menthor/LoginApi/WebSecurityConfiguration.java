@@ -1,11 +1,10 @@
 package com.menthor.LoginApi;
 
-import com.menthor.LoginApi.auth.JwtTokenFilter;
-import com.menthor.LoginApi.auth.UserDetailsService;
+import com.menthor.LoginApi.service.JwtTokenFilter;
+import com.menthor.LoginApi.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -27,7 +26,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configurePasswordEncoder(AuthenticationManagerBuilder builder) throws Exception{
-        builder.userDetailsService(userDetailsService).passwordEncoder(getBCryptPasswordEncoder());
+        //builder.userDetailsService(userDetailsService).passwordEncoder(getBCryptPasswordEncoder());
     }
     @Bean
     public BCryptPasswordEncoder getBCryptPasswordEncoder(){

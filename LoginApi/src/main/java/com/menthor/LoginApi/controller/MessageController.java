@@ -1,4 +1,4 @@
-package com.menthor.LoginApi.api;
+package com.menthor.LoginApi.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
