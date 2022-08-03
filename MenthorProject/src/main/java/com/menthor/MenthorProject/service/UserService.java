@@ -94,6 +94,19 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public List<UserEntity> Search(String name){
+        List<UserEntity> byName = userRepository.findByNameContainingIgnoreCaseAndRoleIgnoreCase(name, "mentor");
+        List<UserEntity> bySurname = userRepository.findBySurnameContainingIgnoreCaseAndRoleIgnoreCase(name, "mentor");
+        for (int i = 0; i < byName.size(); ++i){
+            for (int j=0; j < bySurname.size(); ++j){
+                if (byName.get(i).getId() == bySurname.get(j).getId())
+                    bySurname.remove(j);
+            }
+        }
+        byName.addAll(bySurname);
+        return byName;
+    }
+
     //validations..
     private Boolean UserValidation(String email, String phone){
         List<UserEntity> mail = userRepository.findByEmail(email);
