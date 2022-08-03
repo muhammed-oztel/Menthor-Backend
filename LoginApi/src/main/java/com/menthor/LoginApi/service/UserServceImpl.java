@@ -19,6 +19,6 @@ public class UserServceImpl implements UserService{
     public UserEntity validateUser(String email, String role, String password) throws Exception {
         if(email != null)
             email = email.toLowerCase();
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmailIgnoreCase(email);
     }
 }

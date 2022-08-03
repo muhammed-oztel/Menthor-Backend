@@ -40,7 +40,7 @@ public class LoginController {
     @PostMapping("/login")
     public JwtResponse login(@RequestBody LoginRequest loginRequest){
             // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getMail(), loginRequest.getPassword()));
-            UserEntity user = userRepository.findByEmail(loginRequest.getMail());
+            UserEntity user = userRepository.findByEmailIgnoreCase(loginRequest.getMail());
             if (user != null){
                 Boolean matchPass = bCryptPasswordEncoder.matches(loginRequest.getPassword(), user.getPass());
                 if (matchPass){
