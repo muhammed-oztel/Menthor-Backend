@@ -2,7 +2,6 @@ package com.menthor.controller;
 /*
  Belongs to File Upload
  */
-
 import com.menthor.model.Attachment;
 import com.menthor.model.ResponseData;
 import com.menthor.service.AttachmentService;
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDate;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class AttachmentController {
 
