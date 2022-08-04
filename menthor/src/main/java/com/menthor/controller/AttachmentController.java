@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -66,6 +67,11 @@ public class AttachmentController {
     public String deleteFile(@PathVariable ("id") Long id){
         attachmentService.deleteFile(id);
         return "You successfully deleted the file.";
+    }
+
+    @GetMapping("/listfiles/{uploader_id}")
+    public List<Attachment> listFile (@PathVariable ("uploader_id") String uploader_id){
+        return attachmentService.getFiles(uploader_id);
     }
 
 }
