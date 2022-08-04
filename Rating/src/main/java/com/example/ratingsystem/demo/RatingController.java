@@ -11,14 +11,14 @@ public class RatingController
     @Autowired
     UserRepo userRepo;
 
-    @GetMapping(path="/getUserJsonById/{userId}", produces={"application/json"})
+    @GetMapping(path="getUserJsonById/{userId}", produces={"application/json"})
     public List<RatingModel> getUserJsonById(@PathVariable("userId") int userId)
     {
         return(userRepo.findById(userId));
     }
 
 
-    @PostMapping("/setUserRatingJsonById")
+    @PostMapping("setUserRatingJsonById")
     public String setUserRatingJsonById(@RequestBody Map<String, Integer> um)
     {
         try
