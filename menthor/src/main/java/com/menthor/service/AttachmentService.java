@@ -1,6 +1,9 @@
-package com.fileupload.springfileuploadgradle.service;
+package com.menthor.service;
+/*
+ Belongs to File Upload
+ */
 
-import com.fileupload.springfileuploadgradle.entity.Attachment;
+import com.menthor.model.Attachment;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -11,5 +14,6 @@ public interface AttachmentService {
     Attachment getAttachment(Long fileId) throws Exception;
 
     List<Attachment> getFiles(String uploader_id);
+
     void deleteFile(Long id);
 }

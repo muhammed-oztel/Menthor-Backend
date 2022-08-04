@@ -1,13 +1,17 @@
-package com.fileupload.springfileuploadgradle.service;
+package com.menthor.service;
+/*
+ Belongs to File Upload
+ */
 
-import com.fileupload.springfileuploadgradle.entity.Attachment;
-import com.fileupload.springfileuploadgradle.repository.AttachmentRepository;
+import com.menthor.model.Attachment;
+import com.menthor.repository.AttachmentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,7 +31,7 @@ public class AttachmentServiceImpl implements AttachmentService{
             if(fileName.contains("..")){
                 throw new Exception("Filename contains invalid path sequence" + fileName);
             }
-            Attachment attachment = new Attachment(uploader_id,fileName, file.getContentType(),file.getBytes(), LocalDate.now());
+            Attachment attachment = new Attachment(uploader_id,fileName, file.getContentType(),file.getBytes(), LocalDateTime.now());
             return attachmentRepository.save(attachment);
 
         }catch(Exception e){
@@ -52,6 +56,7 @@ public class AttachmentServiceImpl implements AttachmentService{
     }
 
     @Transactional
+    @Override
     public List<Attachment> getFiles(String uploader_id){
         return attachmentRepository.findbyUploaderId(uploader_id);
     }

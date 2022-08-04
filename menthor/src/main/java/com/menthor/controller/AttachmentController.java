@@ -1,9 +1,10 @@
-package com.fileupload.springfileuploadgradle.controller;
-
-
-import com.fileupload.springfileuploadgradle.entity.Attachment;
-import com.fileupload.springfileuploadgradle.model.ResponseData;
-import com.fileupload.springfileuploadgradle.service.AttachmentService;
+package com.menthor.controller;
+/*
+ Belongs to File Upload
+ */
+import com.menthor.model.Attachment;
+import com.menthor.model.ResponseData;
+import com.menthor.service.AttachmentService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -43,7 +45,7 @@ public class AttachmentController {
                 downloadURL,
                 file.getContentType(),
                 file.getSize(),
-                LocalDate.now(),
+                LocalDateTime.now(),
                 "You have successfully uploaded the file."
         );
     }
@@ -70,7 +72,7 @@ public class AttachmentController {
 
     @GetMapping("/listfiles/{uploader_id}")
     public List<Attachment> listFile (@PathVariable ("uploader_id") String uploader_id){
-       return attachmentService.getFiles(uploader_id);
+        return attachmentService.getFiles(uploader_id);
     }
 
 }
