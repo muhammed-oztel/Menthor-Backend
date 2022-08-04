@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface AttachmentRepository extends JpaRepository<Attachment, Long> {
 
-    @Query("select u from Attachment u where u.uploader_id = ?1 order by u.localDate desc")
+    @Query("select u from Attachment u where u.uploader_id = ?1 order by u.localDateTime desc")
     List<Attachment> findbyUploaderId(String uploader_id);
 }

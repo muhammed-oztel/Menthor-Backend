@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -44,7 +45,7 @@ public class AttachmentController {
                 downloadURL,
                 file.getContentType(),
                 file.getSize(),
-                LocalDate.now(),
+                LocalDateTime.now(),
                 "You have successfully uploaded the file."
         );
     }

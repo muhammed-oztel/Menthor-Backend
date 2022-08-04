@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data@NoArgsConstructor
@@ -24,7 +25,7 @@ public class Attachment {
     private String fileType;
     @Lob
     private byte[] data;
-    private LocalDate localDate;
+    private LocalDateTime localDateTime;
 
     public Attachment(String fileName, String fileType, byte[] data) {
         this.fileName = fileName;
@@ -32,19 +33,19 @@ public class Attachment {
         this.data = data;
     }
 
-    public Attachment(String fileName, String fileType, byte[] data, LocalDate localDate) {
+    public Attachment(String fileName, String fileType, byte[] data, LocalDateTime localDateTime) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.data = data;
-        this.localDate = localDate;
+        this.localDateTime = localDateTime;
     }
 
-    public Attachment(String uploader_id, String fileName, String fileType, byte[] data, LocalDate localDate) {
+    public Attachment(String uploader_id, String fileName, String fileType, byte[] data, LocalDateTime localDateTime) {
         this.uploader_id = uploader_id;
         this.fileName = fileName;
         this.fileType = fileType;
         this.data = data;
-        this.localDate = localDate;
+        this.localDateTime = localDateTime;
     }
 
 }
