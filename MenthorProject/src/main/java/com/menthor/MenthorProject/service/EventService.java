@@ -32,4 +32,25 @@ public class EventService {
             return response;
         }
     }
+
+    public UserDto.Response Update(Long id, EventEntity event){
+        EventEntity updatedEvent = eventRepository.getReferenceById(id);
+        updatedEvent.setTitle(event.getTitle());
+        updatedEvent.setDescription(event.getDescription());
+        updatedEvent.setStartDate(event.getStartDate());
+        updatedEvent.setFinishDate(event.getFinishDate());
+        eventRepository.save(updatedEvent);
+        response.setMessage("Görüşme Güncellendi.");
+        return response;
+    }
+
+    public Optional<EventEntity> ListById(Long id){
+        return eventRepository.findById(id);
+    }
+
+    public UserDto.Response Delete(Long id){
+        eventRepository.deleteById(id);
+        response.setMessage("Görüşme Silindi.");
+        return response;
+    }
 }

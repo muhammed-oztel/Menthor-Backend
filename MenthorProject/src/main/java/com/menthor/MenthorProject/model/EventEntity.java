@@ -1,7 +1,6 @@
 package com.menthor.MenthorProject.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "Event")
@@ -20,10 +19,10 @@ public class EventEntity {
     private String description;
 
     @Column(name = "startDate")
-    private Date startDate;
+    private String startDate;
 
     @Column(name = "finishDate")
-    private Date finishDate;
+    private String finishDate;
 
     public Long getId() {
         return id;
@@ -57,19 +56,19 @@ public class EventEntity {
         this.description = description;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getFinishDate() {
+    public String getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Date finishDate) {
+    public void setFinishDate(String finishDate) {
         this.finishDate = finishDate;
     }
 }
