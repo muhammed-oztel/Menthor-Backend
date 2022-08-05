@@ -23,12 +23,21 @@ public class RatingController
     @PostMapping("setUserRatingJsonById")
     public String setUserRatingJsonById(@RequestBody RatingModel um)
 
+
     {
         try
         {
             int uId = um.getUserId();
             double uRating = um.getUserRating();
             String uName= um.getUserName();
+
+    {
+        try
+        {
+            int uId = um.get("userId");
+            double uRating = um.get("rating");
+            String uName=um.getUserName();
+
             List<RatingModel> userDb = userRepo.findById(uId);
             Double dbCountRating = userDb.get(0).getCountUserRating();
             int dbCountRides = userDb.get(0).getCountUserRides();
