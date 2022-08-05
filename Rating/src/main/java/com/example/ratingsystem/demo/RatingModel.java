@@ -13,7 +13,7 @@ public class RatingModel
     private double userRating;
 
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
