@@ -1,6 +1,8 @@
 package com.example.ratingsystem.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -11,20 +13,21 @@ public class RatingController
     @Autowired
     UserRepo userRepo;
 
-    @GetMapping(path="/getUserJsonById/{userId}", produces={"application/json"})
+    @GetMapping(path="getUserJsonById/{userId}", produces={"application/json"})
     public List<RatingModel> getUserJsonById(@PathVariable("userId") int userId)
     {
         return(userRepo.findById(userId));
     }
 
 
-    @PostMapping("/setUserRatingJsonById")
-    public String setUserRatingJsonById(@RequestBody Map<String, Integer> um)
+    @PostMapping("setUserRatingJsonById")
+    public String setUserRatingJsonById(@RequestBody RatingModel um)
     {
         try
         {
-            int uId = um.get("userId");
-            int uRating = um.get("rating");
+            int uId = um.getUserId();
+            double uRating = um.getUserRating();
+            String uName= um.getUserName();
             List<RatingModel> userDb = userRepo.findById(uId);
             Double dbCountRating = userDb.get(0).getCountUserRating();
             int dbCountRides = userDb.get(0).getCountUserRides();
