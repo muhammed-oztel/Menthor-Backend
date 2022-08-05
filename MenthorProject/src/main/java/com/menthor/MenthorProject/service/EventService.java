@@ -7,6 +7,7 @@ import com.menthor.MenthorProject.repository.EventRepository;
 import com.menthor.MenthorProject.repository.MatchRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,15 +38,15 @@ public class EventService {
         EventEntity updatedEvent = eventRepository.getReferenceById(id);
         updatedEvent.setTitle(event.getTitle());
         updatedEvent.setDescription(event.getDescription());
-        updatedEvent.setStartDate(event.getStartDate());
-        updatedEvent.setFinishDate(event.getFinishDate());
+        updatedEvent.setStart(event.getStart());
+        updatedEvent.setEnd(event.getEnd());
         eventRepository.save(updatedEvent);
         response.setMessage("Görüşme Güncellendi.");
         return response;
     }
 
-    public Optional<EventEntity> ListById(Long id){
-        return eventRepository.findById(id);
+    public List<EventEntity> GetList(Long matchId){
+        return eventRepository.findByMatchId(matchId);
     }
 
     public UserDto.Response Delete(Long id){

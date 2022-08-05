@@ -18,11 +18,11 @@ public class EventEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "startDate")
-    private String startDate;
+    @Column(name = "start")
+    private String start;
 
-    @Column(name = "finishDate")
-    private String finishDate;
+    @Column(name = "finish")
+    private String end;
 
     public Long getId() {
         return id;
@@ -56,19 +56,19 @@ public class EventEntity {
         this.description = description;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public String getStart() {
+        return start;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setStart(String start) {
+        this.start = start;
     }
 
-    public String getFinishDate() {
-        return finishDate;
+    public String getEnd() {
+        return end;
     }
 
-    public void setFinishDate(String finishDate) {
-        this.finishDate = finishDate;
+    public void setEnd(String end) {
+        this.end = end;
     }
 }
