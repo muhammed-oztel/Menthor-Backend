@@ -3,7 +3,9 @@ package com.menthor.service;
 import com.menthor.dto.UserDto;
 import com.menthor.model.UserDetailEntity;
 import com.menthor.repository.UserDetailRepository;
+
 import org.apache.catalina.User;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,8 @@ public class UserDetailService {
     }
 
     public UserDto.Response Create(List<UserDetailEntity> userDetails){
+        UserDto.Response response = new UserDto.Response();
+
         userDetailRepository.saveAll(userDetails);
         response.setMessage("Alan Eklendi.");
         return response;
@@ -39,5 +43,11 @@ public class UserDetailService {
 
     public List<UserDetailEntity> ListByUserId(Long userId){
         return userDetailRepository.findByUserId(userId);
+
+    public UserDto.Response Delete(Long id){
+        UserDto.Response response = new UserDto.Response();
+        userDetailRepository.deleteById(id);
+        response.setMessage("Alan Silindi.");
+        return response;
     }
 }
