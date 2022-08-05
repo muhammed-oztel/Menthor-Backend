@@ -6,7 +6,6 @@ import com.menthor.service.EventService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -28,9 +27,9 @@ public class EventController {
         return eventService.Update(id, event);
     }
 
-    @GetMapping("/listById/{id}")
-    public Optional<EventEntity> ListById(@PathVariable Long id){
-        return eventService.ListById(id);
+    @GetMapping("/list/{matchId}")
+    public List<EventEntity> GetList(@PathVariable Long matchId){
+        return eventService.GetList(matchId);
     }
 
     @DeleteMapping("/delete/{id}")
