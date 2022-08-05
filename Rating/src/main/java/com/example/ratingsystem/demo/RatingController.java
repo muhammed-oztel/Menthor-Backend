@@ -22,6 +22,7 @@ public class RatingController
 
     @PostMapping("setUserRatingJsonById")
     public String setUserRatingJsonById(@RequestBody RatingModel um)
+
     {
         try
         {
