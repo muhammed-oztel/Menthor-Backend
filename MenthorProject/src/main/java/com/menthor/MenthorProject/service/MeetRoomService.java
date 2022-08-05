@@ -51,7 +51,7 @@ public class MeetRoomService {
 
     public String GetCode(Long mentee_id){
         try {
-            MatchEntity matchEntity = matchRepository.findByMentor_id(mentee_id);
+            MatchEntity matchEntity = matchRepository.findByMentee_id(mentee_id);
             MeetRoomKeyEntity meetRoomKeyEntity = meetRoomRepository.findByMatch_Id(matchEntity.getId());
             return meetRoomKeyEntity.getRoom_code();
         } catch (Exception e){

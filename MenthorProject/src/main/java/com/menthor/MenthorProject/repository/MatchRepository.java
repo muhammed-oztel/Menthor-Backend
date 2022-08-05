@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MatchRepository extends JpaRepository<MatchEntity, Long> {
-    public MatchEntity findByMentor_id(Long mentor);
+    public MatchEntity findByMentor_id(Long mentorid);
+
+    public MatchEntity findByMentee_id(Long menteeid);
 }
