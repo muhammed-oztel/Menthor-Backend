@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface UserDetailRepository extends JpaRepository<UserDetailEntity, Long> {
-    public List<UserDetailEntity> findByUserId(Long id);
+    public List<UserDetailEntity> findByUserId(Long userId);
 }

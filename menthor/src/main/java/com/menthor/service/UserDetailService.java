@@ -3,6 +3,9 @@ package com.menthor.service;
 import com.menthor.dto.UserDto;
 import com.menthor.model.UserDetailEntity;
 import com.menthor.repository.UserDetailRepository;
+
+import org.apache.catalina.User;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +13,11 @@ import java.util.List;
 @Service
 public class UserDetailService {
     private final UserDetailRepository userDetailRepository;
+    private final UserDto.Response response;
 
     public UserDetailService(UserDetailRepository userDetailRepository) {
         this.userDetailRepository = userDetailRepository;
+        this.response = new UserDto.Response();
     }
 
     public List<UserDetailEntity> FindAll(){
@@ -21,28 +26,28 @@ public class UserDetailService {
 
     public UserDto.Response Create(List<UserDetailEntity> userDetails){
         UserDto.Response response = new UserDto.Response();
+
         userDetailRepository.saveAll(userDetails);
         response.setMessage("Alan Eklendi.");
         return response;
     }
 
-    public UserDto.Response Update(Long id, UserDetailEntity userDetail){
-        UserDto.Response response = new UserDto.Response();
-        UserDetailEntity detailInfo = userDetailRepository.getReferenceById(id);
-        detailInfo.setField(userDetail.getField());
-        userDetailRepository.save(detailInfo);
-        response.setMessage("Alan Güncellendi.");
+    public UserDto.Response Update(Long userId, List<UserDetailEntity> updatedDetail){
+        List<UserDetailEntity> deletedList = userDetailRepository.findByUserId(userId);
+        if (!deletedList.isEmpty())
+            userDetailRepository.deleteAll(deletedList);
+        userDetailRepository.saveAll(updatedDetail);
+        response.setMessage("Alan Güncellendi");
         return response;
     }
+
+    public List<UserDetailEntity> ListByUserId(Long userId){
+        return userDetailRepository.findByUserId(userId);
 
     public UserDto.Response Delete(Long id){
         UserDto.Response response = new UserDto.Response();
         userDetailRepository.deleteById(id);
         response.setMessage("Alan Silindi.");
         return response;
-    }
-
-    public List<UserDetailEntity> ListByUserId(Long id){
-        return userDetailRepository.findByUserId(id);
     }
 }

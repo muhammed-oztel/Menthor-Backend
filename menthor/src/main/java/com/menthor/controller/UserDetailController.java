@@ -26,18 +26,18 @@ public class UserDetailController {
         return userDetailService.Create(userDetails);
     }
 
-    @PutMapping("/update/{id}")
-    public UserDto.Response Update(@PathVariable Long id, @RequestBody UserDetailEntity userDetail){
-        return userDetailService.Update(id, userDetail);
+    @PutMapping("/update/{userId}")
+    public UserDto.Response Update(@PathVariable Long userId, @RequestBody List<UserDetailEntity> updatedDetail){
+        return userDetailService.Update(userId, updatedDetail);
     }
+
+    @GetMapping("/listId/{userId}")
+    public List<UserDetailEntity> ListByUserId(@PathVariable Long userId){
+        return userDetailService.ListByUserId(userId);
 
     @DeleteMapping("/delete/{id}")
     public UserDto.Response Delete(@PathVariable Long id){
         return userDetailService.Delete(id);
     }
-
-    @GetMapping("/listId/{id}")
-    public List<UserDetailEntity> ListByUserId(@PathVariable Long id){
-        return userDetailService.ListByUserId(id);
     }
 }
