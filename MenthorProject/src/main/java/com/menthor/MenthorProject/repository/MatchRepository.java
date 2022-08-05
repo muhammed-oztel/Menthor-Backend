@@ -4,9 +4,11 @@ import com.menthor.MenthorProject.model.MatchEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface MatchRepository extends JpaRepository<MatchEntity, Long> {
-    public MatchEntity findByMentor_id(Long mentorid);
+    public List<MatchEntity> findByMentor(Long mentor);
 
-    public MatchEntity findByMentee_id(Long menteeid);
+    public List<MatchEntity> findByMentee(Long mentee);
 }

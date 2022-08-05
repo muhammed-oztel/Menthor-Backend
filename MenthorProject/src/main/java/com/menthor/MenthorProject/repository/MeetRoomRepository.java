@@ -4,9 +4,11 @@ import com.menthor.MenthorProject.model.MeetRoomKeyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface MeetRoomRepository extends JpaRepository<MeetRoomKeyEntity, Long> {
 
-    public MeetRoomKeyEntity findByMatch_Id(Long match_id);
+    public List<MeetRoomKeyEntity> findByMatch(Long match);
 
 }

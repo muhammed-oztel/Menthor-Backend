@@ -8,39 +8,39 @@ import java.util.Date;
 public class MatchEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long Id;
 
-    @Column(name = "mentor_id")
-    private Long mentor_id;
+    @Column(name = "mentor")
+    private Long mentor;
 
-    @Column(name = "mentee_id")
-    private Long mentee_id;
+    @Column(name = "mentee")
+    private Long mentee;
 
     @Column(name = "date")
     private Date date;
 
     public Long getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public Long getMentor_id() {
-        return mentor_id;
+        return mentor;
     }
 
     public void setMentor_id(Long mentor_id) {
-        this.mentor_id = mentor_id;
+        this.mentor = mentor_id;
     }
 
     public Long getMentee_id() {
-        return mentee_id;
+        return mentee;
     }
 
     public void setMentee_id(Long mentee_id) {
-        this.mentee_id = mentee_id;
+        this.mentee = mentee_id;
     }
 
     public Date getDate() {

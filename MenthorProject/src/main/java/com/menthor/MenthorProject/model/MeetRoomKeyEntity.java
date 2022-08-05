@@ -9,7 +9,7 @@ public class MeetRoomKeyEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
     @Column
-    private Long match_Id;
+    private Long match;
     @Column(name = "room_code")
     private String room_code;
 
@@ -30,10 +30,10 @@ public class MeetRoomKeyEntity {
     }
 
     public Long getMatch_Id() {
-        return match_Id;
+        return match;
     }
 
     public void setMatch_Id(Long match_Id) {
-        this.match_Id = match_Id;
+        this.match = match_Id;
     }
 }

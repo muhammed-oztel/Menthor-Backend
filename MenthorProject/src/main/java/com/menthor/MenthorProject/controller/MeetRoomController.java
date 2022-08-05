@@ -20,8 +20,8 @@ public class MeetRoomController {
         return meetRoomService.CreateCode(key, mentorId);
     }
 
-    @GetMapping("/Mentee_side")
-    public String Mentee_side(@RequestBody Long input){
-        return meetRoomService.GetCode(input);
+    @GetMapping("/Mentee_side/{menteeId}")
+    public String Mentee_side(@PathVariable Long menteeId){
+        return meetRoomService.GetCode(menteeId);
     }
 }
