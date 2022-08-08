@@ -27,20 +27,20 @@ public class MatchEntity {
         this.Id = id;
     }
 
-    public Long getMentor_id() {
+    public Long getMentor() {
         return mentor;
     }
 
-    public void setMentor_id(Long mentor_id) {
-        this.mentor = mentor_id;
+    public void setMentor(Long mentor) {
+        this.mentor = mentor;
     }
 
-    public Long getMentee_id() {
+    public Long getMentee() {
         return mentee;
     }
 
-    public void setMentee_id(Long mentee_id) {
-        this.mentee = mentee_id;
+    public void setMentee(Long mentee) {
+        this.mentee = mentee;
     }
 
     public Date getDate() {

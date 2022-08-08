@@ -22,9 +22,11 @@ public class EventService {
         this.response = new UserDto.Response();
     }
 
-    public UserDto.Response Create(EventEntity event){
-        Optional<MatchEntity> isEmpty = matchRepository.findById(event.getMatchId());
+    public UserDto.Response Create(Long userId, EventEntity event){
+        Long matchId = matchRepository.findByMentorOrMentee(userId, userId).getId();
+        Optional<MatchEntity> isEmpty = matchRepository.findById(matchId);
         if (!isEmpty.isEmpty()){
+            event.setMatchId(matchId);
             eventRepository.save(event);
             response.setMessage("Görüşme Kaydedildi.");
             return response;
