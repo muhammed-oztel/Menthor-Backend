@@ -57,4 +57,9 @@ public class UserController {
     public Optional<UserEntity> Panel(@PathVariable Long userId){
         return userService.Panel(userId);
     }
+
+    @DeleteMapping("/deleteMatch/{userId}")
+    public UserDto.Response DeleteMatch(@PathVariable Long userId){
+        return userService.DeleteMatch(userId);
+    }
 }
