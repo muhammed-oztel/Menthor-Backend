@@ -28,7 +28,7 @@ public class UserEntity {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "picture")
+    @Column(name = "picture", length = 250000)
     private String picture;
 
     @Column(name = "role")

@@ -39,7 +39,7 @@ public class LoginController {
     public JwtResponse login(@RequestBody LoginRequest loginRequest){
         // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getMail(), loginRequest.getPassword()));
         UserEntity user = userRepository.findByEmailIgnoreCase(loginRequest.getMail());
-        if (user != null && user.getDeleted().equals(false)){
+        if (user != null && user.getDeleted() == null){
             Boolean matchPass = bCryptPasswordEncoder.matches(loginRequest.getPassword(), user.getPass());
             if (matchPass){
                 String token = tokenManager.generateToken(loginRequest.getMail());
@@ -48,6 +48,7 @@ public class LoginController {
                 jwtResponse.setToken(token);
                 jwtResponse.setRole(user.getRole());
                 jwtResponse.setId(user.getId());
+                jwtResponse.setEnabled(user.getEnabled());
                 return jwtResponse;
             }
         }else {
