@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import com.menthor.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +19,7 @@ public class UserDetailsService {
     @Autowired()
     private BCryptPasswordEncoder passwordEncoder;
 
-    public UserDetailsService(BCryptPasswordEncoder passwordEncoder) {
+    public UserDetailsService(@Lazy BCryptPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
