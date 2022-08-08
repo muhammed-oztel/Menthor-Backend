@@ -19,6 +19,8 @@ public class MatchEntity {
     @Column(name = "date")
     private Date date;
 
+    private Date deleted;
+
     public Long getId() {
         return Id;
     }
@@ -49,5 +51,13 @@ public class MatchEntity {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Date getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Date deleted) {
+        this.deleted = deleted;
     }
 }

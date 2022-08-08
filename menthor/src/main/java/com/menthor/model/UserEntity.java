@@ -34,9 +34,15 @@ public class UserEntity {
     @Column(name = "role")
     private String role;
 
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "about")
+    private String about;
+
     private Boolean enabled;
 
-    private Boolean deleted;
+    private Date deleted;
 
     public Long getId() {
         return id;
@@ -110,6 +116,22 @@ public class UserEntity {
         this.role = role;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
     public Boolean getEnabled() {
         return enabled;
     }
@@ -118,11 +140,11 @@ public class UserEntity {
         this.enabled = enabled;
     }
 
-    public Boolean getDeleted() {
+    public Date getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(Date deleted) {
         this.deleted = deleted;
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +43,6 @@ public class UserService {
             user.setEnabled(false);
             String encodedPass = passwordEncoder.encode(user.getPass());
             user.setPass(encodedPass);
-            user.setDeleted(false);
             userRepository.save(user);
             ConfirmationTokenEntity confirmationToken = new ConfirmationTokenEntity(user);
             confirmationTokenRepository.save(confirmationToken);
@@ -70,14 +70,17 @@ public class UserService {
         UserEntity userInfo = userRepository.getReferenceById(id);
         userInfo.setName(user.getName());
         userInfo.setSurname(user.getSurname());
-        String encodedPass = passwordEncoder.encode(user.getPass());
-        userInfo.setPass(encodedPass);
+//        String encodedPass = passwordEncoder.encode(user.getPass());
+//        userInfo.setPass(encodedPass);
         userInfo.setBirth(user.getBirth());
         userInfo.setPhone(user.getPhone());
         userInfo.setPicture(user.getPicture());
-        if (!(user.getEmail().equals(userInfo.getEmail())))
+        userInfo.setCity(user.getCity());
+        userInfo.setAbout(user.getAbout());
+        if (!(user.getEmail().equals(userInfo.getEmail()))){
             userInfo.setEmail(user.getEmail());
-        changeEmail(userInfo);
+            changeEmail(userInfo);
+        }
         userRepository.save(userInfo);
         response.setMessage("Hesap Bilgileri Güncellendi.");
         return response;
@@ -85,7 +88,7 @@ public class UserService {
 
     public UserDto.Response Delete(Long id){
         UserEntity user = userRepository.getReferenceById(id);
-        user.setDeleted(true);
+        user.setDeleted(new Date());
         userRepository.save(user);
         response.setMessage("Hesap Silindi.");
         return response;
@@ -127,7 +130,8 @@ public class UserService {
 
     public UserDto.Response DeleteMatch(Long userId){
         MatchEntity match = matchRepository.findByMentorOrMentee(userId, userId);
-        matchRepository.deleteById(match.getId());
+        match.setDeleted(new Date());
+        matchRepository.save(match);
         response.setMessage("Eşleşme Silindi");
         return response;
     }
