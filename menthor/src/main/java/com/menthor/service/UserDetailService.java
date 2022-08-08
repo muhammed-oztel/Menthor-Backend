@@ -23,17 +23,11 @@ public class UserDetailService {
     }
 
     public UserDto.Response Create(List<UserDetailEntity> userDetails){
-        userDetailRepository.saveAll(userDetails);
-        response.setMessage("Alan Eklendi.");
-        return response;
-    }
-
-    public UserDto.Response Update(Long userId, List<UserDetailEntity> updatedDetail){
-        List<UserDetailEntity> deletedList = userDetailRepository.findByUserId(userId);
+        List<UserDetailEntity> deletedList = userDetailRepository.findByUserId(userDetails.get(0).getUserId());
         if (!deletedList.isEmpty())
             userDetailRepository.deleteAll(deletedList);
-        userDetailRepository.saveAll(updatedDetail);
-        response.setMessage("Alan Güncellendi");
+        userDetailRepository.saveAll(userDetails);
+        response.setMessage("Alan Eklendi.");
         return response;
     }
 
