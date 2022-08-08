@@ -26,11 +26,6 @@ public class UserDetailController {
         return userDetailService.Create(userDetails);
     }
 
-    @PutMapping("/update/{userId}")
-    public UserDto.Response Update(@PathVariable Long userId, @RequestBody List<UserDetailEntity> updatedDetail){
-        return userDetailService.Update(userId, updatedDetail);
-    }
-
     @GetMapping("/listId/{userId}")
     public List<UserDetailEntity> ListByUserId(@PathVariable Long userId){
         return userDetailService.ListByUserId(userId);
