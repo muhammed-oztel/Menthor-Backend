@@ -118,13 +118,19 @@ public class UserService {
     public Optional<UserEntity> Panel(Long userId){
         UserEntity user1 = userRepository.getReferenceById(userId);
         if (user1.getRole().toLowerCase().equals("mentor")){
-            Long user2Id = matchRepository.findByMentor(userId).get(0).getMentee();
-            Optional<UserEntity> user2 = userRepository.findById(user2Id);
-            return user2;
+            MatchEntity match = matchRepository.findByMentor(userId).get(0);
+            if (match.getDeleted() == null){
+                Optional<UserEntity> user2 = userRepository.findById(match.getMentee());
+                return user2;
+            }else
+                return null;
         }else {
-            Long user2Id = matchRepository.findByMentee(userId).get(0).getMentor();
-            Optional<UserEntity> user2 = userRepository.findById(user2Id);
-            return user2;
+            MatchEntity match = matchRepository.findByMentee(userId).get(0);
+            if (match.getDeleted() == null){
+                Optional<UserEntity> user2 = userRepository.findById(match.getMentor());
+                return user2;
+            }else
+                return null;
         }
     }
 
