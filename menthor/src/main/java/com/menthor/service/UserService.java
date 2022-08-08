@@ -2,6 +2,7 @@ package com.menthor.service;
 
 import com.menthor.dto.UserDto;
 import com.menthor.model.ConfirmationTokenEntity;
+import com.menthor.model.MatchEntity;
 import com.menthor.model.UserEntity;
 import com.menthor.repository.ConfirmationTokenRepository;
 import com.menthor.repository.MatchRepository;
@@ -122,6 +123,13 @@ public class UserService {
             Optional<UserEntity> user2 = userRepository.findById(user2Id);
             return user2;
         }
+    }
+
+    public UserDto.Response DeleteMatch(Long userId){
+        MatchEntity match = matchRepository.findByMentorOrMentee(userId, userId);
+        matchRepository.deleteById(match.getId());
+        response.setMessage("Eşleşme Silindi");
+        return response;
     }
 
     //validations..
