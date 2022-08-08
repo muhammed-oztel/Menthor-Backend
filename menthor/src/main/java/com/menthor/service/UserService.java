@@ -4,12 +4,14 @@ import com.menthor.dto.UserDto;
 import com.menthor.model.ConfirmationTokenEntity;
 import com.menthor.model.UserEntity;
 import com.menthor.repository.ConfirmationTokenRepository;
+import com.menthor.repository.MatchRepository;
 import com.menthor.repository.UserRepository;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +22,13 @@ public class UserService {
     private final EmailSenderService emailSenderService;
     private final PasswordEncoder passwordEncoder;
     private final UserDto.Response response;
+    private final MatchRepository matchRepository;
 
-    public UserService(UserRepository userRepository, ConfirmationTokenRepository confirmationTokenRepository, EmailSenderService emailSenderService) {
+    public UserService(UserRepository userRepository, ConfirmationTokenRepository confirmationTokenRepository, EmailSenderService emailSenderService, MatchRepository matchRepository) {
         this.userRepository = userRepository;
         this.confirmationTokenRepository = confirmationTokenRepository;
         this.emailSenderService = emailSenderService;
+        this.matchRepository = matchRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.response = new UserDto.Response();
     }
@@ -105,6 +109,19 @@ public class UserService {
         }
         byName.addAll(bySurname);
         return byName;
+    }
+
+    public Optional<UserEntity> Panel(Long userId){
+        UserEntity user1 = userRepository.getReferenceById(userId);
+        if (user1.getRole().toLowerCase().equals("mentor")){
+            Long user2Id = matchRepository.findByMentor(userId).get(0).getMentee();
+            Optional<UserEntity> user2 = userRepository.findById(user2Id);
+            return user2;
+        }else {
+            Long user2Id = matchRepository.findByMentee(userId).get(0).getMentor();
+            Optional<UserEntity> user2 = userRepository.findById(user2Id);
+            return user2;
+        }
     }
 
     //validations..
