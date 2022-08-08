@@ -17,9 +17,9 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @PostMapping("/create")
-    public UserDto.Response Create(@RequestBody EventEntity event){
-        return eventService.Create(event);
+    @PostMapping("/create/{userId}")
+    public UserDto.Response Create(@PathVariable Long userId, @RequestBody EventEntity event){
+        return eventService.Create(userId, event);
     }
 
     @PutMapping("/update/{id}")
