@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class AttachmentServiceImpl implements AttachmentService{
@@ -47,5 +49,10 @@ public class AttachmentServiceImpl implements AttachmentService{
         }
         attachmentRepository.deleteById(id);
 
+    }
+
+    @Transactional
+    public List<Attachment> getFiles(String uploader_id){
+        return attachmentRepository.findbyUploaderId(uploader_id);
     }
 }

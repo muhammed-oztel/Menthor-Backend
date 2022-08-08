@@ -34,5 +34,10 @@ public class UserDetailController {
     @GetMapping("/listId/{userId}")
     public List<UserDetailEntity> ListByUserId(@PathVariable Long userId){
         return userDetailService.ListByUserId(userId);
+
+    @DeleteMapping("/delete/{id}")
+    public UserDto.Response Delete(@PathVariable Long id){
+        return userDetailService.Delete(id);
+    }
     }
 }
