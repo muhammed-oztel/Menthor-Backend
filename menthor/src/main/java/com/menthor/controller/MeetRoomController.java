@@ -17,7 +17,8 @@ public class MeetRoomController {
 
     @PostMapping("/Mentor_side/{mentorId}")
     public String Mentor_side(@PathVariable Long mentorId, @RequestBody String key){
-        return meetRoomService.CreateCode(key, mentorId);
+        String[] keyy = key.split("=");
+        return meetRoomService.CreateCode(keyy[0], mentorId);
     }
 
     @GetMapping("/Mentee_side/{menteeId}")
