@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -16,9 +13,11 @@ import java.time.LocalDate;
 
 public class Attachment {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+   // @Generated Value (generator = "uuid" )
+   // @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private Long id;
+    //private String id;
     private String uploader_id;
     private String fileName;
     private String fileType;
@@ -46,4 +45,5 @@ public class Attachment {
         this.data = data;
         this.localDate = localDate;
     }
+
 }

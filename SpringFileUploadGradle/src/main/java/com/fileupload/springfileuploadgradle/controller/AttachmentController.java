@@ -14,7 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDate;
+import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class AttachmentController {
 
@@ -30,7 +32,8 @@ public class AttachmentController {
         attachment = attachmentService.saveAttachment(file,uploader_id);
         downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/download/")
-                .path (attachment.getId())
+                .path (attachment.getId().toString())
+                //.path (attachment.getId())
                 .toUriString();
 
 
@@ -40,12 +43,13 @@ public class AttachmentController {
                 downloadURL,
                 file.getContentType(),
                 file.getSize(),
-                LocalDate.now()
+                LocalDate.now(),
+                "You have successfully uploaded the file."
         );
     }
 
     @GetMapping("download/{fileId}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) throws Exception {
+    public ResponseEntity<Resource> downloadFile(@PathVariable Long fileId) throws Exception {
         Attachment attachment = null;
         attachment = attachmentService.getAttachment(fileId);
         return ResponseEntity.ok()
@@ -59,8 +63,14 @@ public class AttachmentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteFile(@PathVariable ("id") String id){
+    public String deleteFile(@PathVariable ("id") Long id){
         attachmentService.deleteFile(id);
+        return "You successfully deleted the file.";
+    }
+
+    @GetMapping("/listfiles/{uploader_id}")
+    public List<Attachment> listFile (@PathVariable ("uploader_id") String uploader_id){
+       return attachmentService.getFiles(uploader_id);
     }
 
 }

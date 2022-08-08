@@ -7,7 +7,11 @@ import com.menthor.MenthorProject.repository.EventRepository;
 import com.menthor.MenthorProject.repository.MatchRepository;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import javax.transaction.Transactional;
+=======
+import java.util.List;
+>>>>>>> 14e2d095118af5eca14804b4307d16608f6b77fc
 import java.util.Optional;
 
 @Service
@@ -34,6 +38,7 @@ public class EventService {
         }
     }
 
+<<<<<<< HEAD
     public boolean Delete(Long id){
         try {
             eventRepository.deleteById(id);
@@ -41,5 +46,26 @@ public class EventService {
         }catch (Exception e) {
             return false;
         }
+=======
+    public UserDto.Response Update(Long id, EventEntity event){
+        EventEntity updatedEvent = eventRepository.getReferenceById(id);
+        updatedEvent.setTitle(event.getTitle());
+        updatedEvent.setDescription(event.getDescription());
+        updatedEvent.setStart(event.getStart());
+        updatedEvent.setEnd(event.getEnd());
+        eventRepository.save(updatedEvent);
+        response.setMessage("Görüşme Güncellendi.");
+        return response;
+    }
+
+    public List<EventEntity> GetList(Long matchId){
+        return eventRepository.findByMatchId(matchId);
+    }
+
+    public UserDto.Response Delete(Long id){
+        eventRepository.deleteById(id);
+        response.setMessage("Görüşme Silindi.");
+        return response;
+>>>>>>> 14e2d095118af5eca14804b4307d16608f6b77fc
     }
 }

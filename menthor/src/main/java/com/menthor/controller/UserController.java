@@ -23,7 +23,11 @@ public class UserController {
         return userService.Register(user);
     }
 
+<<<<<<< HEAD
     @PostMapping("/confirm-account")
+=======
+    @GetMapping("/confirm-account")
+>>>>>>> 14e2d095118af5eca14804b4307d16608f6b77fc
     public UserDto.Response ConfirmUserAccount(@RequestParam String token){
         return userService.ConfirmAccount(token);
     }
