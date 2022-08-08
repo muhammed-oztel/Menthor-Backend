@@ -52,4 +52,9 @@ public class UserController {
     public List<UserEntity> Search(@PathVariable String name){
         return userService.Search(name);
     }
+
+    @PostMapping("/panel/{userId}")
+    public Optional<UserEntity> Panel(@PathVariable Long userId){
+        return userService.Panel(userId);
+    }
 }
