@@ -43,11 +43,5 @@ public class UserDetailService {
 
     public List<UserDetailEntity> ListByUserId(Long userId){
         return userDetailRepository.findByUserId(userId);
-
-    public UserDto.Response Delete(Long id){
-        UserDto.Response response = new UserDto.Response();
-        userDetailRepository.deleteById(id);
-        response.setMessage("Alan Silindi.");
-        return response;
     }
 }
