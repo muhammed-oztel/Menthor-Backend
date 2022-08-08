@@ -12,10 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -162,7 +159,7 @@ public class UserService {
     }
 
     //change email operations..
-    public void changeEmail(UserEntity user){
+    private void changeEmail(UserEntity user){
         ConfirmationTokenEntity tokenInfo = confirmationTokenRepository.findByUserId(user.getId());
         user.setEnabled(false);
         userRepository.save(user);
