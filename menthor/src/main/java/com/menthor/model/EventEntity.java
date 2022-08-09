@@ -1,6 +1,7 @@
 package com.menthor.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Event")
@@ -23,6 +24,8 @@ public class EventEntity {
 
     @Column(name = "finish")
     private String end;
+
+    private Date deleted;
 
     public Long getId() {
         return id;
@@ -70,5 +73,13 @@ public class EventEntity {
 
     public void setEnd(String end) {
         this.end = end;
+    }
+
+    public Date getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Date deleted) {
+        this.deleted = deleted;
     }
 }

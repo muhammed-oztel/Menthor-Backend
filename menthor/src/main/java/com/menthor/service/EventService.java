@@ -10,6 +10,7 @@ import com.menthor.repository.UserRepository;
 import org.apache.catalina.connector.Response;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,7 +68,7 @@ public class EventService {
             }else if (user.getRole().toLowerCase().equals("mentee")){
                 matchId = matchRepository.findByMenteeAndAndDeleted(userId, null).get(0).getId();
             }
-            List<EventEntity> events = eventRepository.findByMatchId(matchId);
+            List<EventEntity> events = eventRepository.findByMatchIdAndDeleted(matchId, null);
             if (events.isEmpty())
                 return null;
             else
@@ -78,7 +79,9 @@ public class EventService {
     }
 
     public UserDto.Response Delete(Long id){
-        eventRepository.deleteById(id);
+        EventEntity event = eventRepository.getReferenceById(id);
+        event.setDeleted(new Date());
+        eventRepository.save(event);
         response.setMessage("Görüşme Silindi.");
         return response;
     }
