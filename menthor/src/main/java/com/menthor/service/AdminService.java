@@ -57,15 +57,18 @@ public class AdminService {
 //        }
     }
 
-    public UserDto.Response DeleteMatch(Long id){
-        matchRepository.deleteById(id);
+    public UserDto.Response DeleteMatch(Long userId){
+        Long matchId = matchRepository.findByMentorOrMentee(userId, userId).getId();
+        MatchEntity match = matchRepository.getReferenceById(matchId);
+        match.setDeleted(new Date());
+        matchRepository.save(match);
         response.setMessage("Eşleşme Silindi");
         return response;
     }
 
-    public List[] UserListByRole(){
-        List<UserEntity> mentor = userRepository.findByRoleIgnoreCaseAndDeleted("mentor", null);
-        List<UserEntity> mentee = userRepository.findByRoleIgnoreCaseAndDeleted("mentee", null);
-        return new List[] {mentor, mentee};
-    }
+//    public List[] UserListByRole(){
+//        List<UserEntity> mentor = userRepository.findByRoleIgnoreCaseAndDeleted("mentor", null);
+//        List<UserEntity> mentee = userRepository.findByRoleIgnoreCaseAndDeleted("mentee", null);
+//        return new List[] {mentor, mentee};
+//    }
 }
