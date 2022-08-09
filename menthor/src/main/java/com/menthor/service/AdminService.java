@@ -11,8 +11,10 @@ import com.menthor.repository.UserDetailRepository;
 import com.menthor.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdminService {
@@ -62,6 +64,21 @@ public class AdminService {
         matchRepository.save(match);
         response.setMessage("Eşleşme Silindi");
         return response;
+    }
+
+    public List[] AllMatch(){
+        List<MatchEntity> matches = matchRepository.findAll();
+        List<UserEntity> mentees = new ArrayList<UserEntity>();
+        List<UserEntity> mentors = new ArrayList<UserEntity>();
+        Optional<UserEntity> mentee = null;
+        Optional<UserEntity> mentor = null;
+        for (int i=0;i<matches.size();++i){
+            mentee = userRepository.findById(matches.get(i).getMentee());
+            mentor = userRepository.findById(matches.get(i).getMentor());
+            mentees.add(mentee.get());
+            mentors.add(mentor.get());
+        }
+        return new List[]{mentees, mentors};
     }
 
 //    public List[] UserListByRole(){

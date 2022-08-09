@@ -123,21 +123,25 @@ public class UserService {
     }
 
     public Optional<UserEntity> Panel(Long userId){
-        UserEntity user1 = userRepository.getReferenceById(userId);
-        if (user1.getRole().toLowerCase().equals("mentor")){
-            MatchEntity match = matchRepository.findByMentor(userId).get(0);
-            if (match.getDeleted() == null){
-                Optional<UserEntity> user2 = userRepository.findById(match.getMentee());
-                return user2;
-            }else
-                return null;
-        }else {
-            MatchEntity match = matchRepository.findByMentee(userId).get(0);
-            if (match.getDeleted() == null){
-                Optional<UserEntity> user2 = userRepository.findById(match.getMentor());
-                return user2;
-            }else
-                return null;
+        try {
+            UserEntity user1 = userRepository.getReferenceById(userId);
+            if (user1.getRole().toLowerCase().equals("mentor")){
+                MatchEntity match = matchRepository.findByMentorAndAndDeleted(userId, null).get(0);
+                if (match != null){
+                    Optional<UserEntity> user2 = userRepository.findById(match.getMentee());
+                    return user2;
+                }else
+                    return null;
+            }else {
+                MatchEntity match = matchRepository.findByMenteeAndAndDeleted(userId, null).get(0);
+                if (match != null){
+                    Optional<UserEntity> user2 = userRepository.findById(match.getMentor());
+                    return user2;
+                }else
+                    return null;
+            }
+        }catch (Exception ex){
+            return null;
         }
     }
 
