@@ -12,7 +12,6 @@ import java.util.Optional;
 public interface MatchRepository extends JpaRepository<MatchEntity, Long> {
     public List<MatchEntity> findByMentor(Long mentor);
     public List<MatchEntity> findByMentee(Long mentee);
-    public MatchEntity findByMentorOrMentee(Long userId, Long userId2);
 
     public List<MatchEntity> findByMentorAndAndDeleted(Long mentee, Date deleted);
 

@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/confirm-account")
-    public ResponseEntity<Object> ConfirmUserAccount(@RequestParam String token){
+    public ResponseEntity<Object> ConfirmAccount(@RequestParam String token){
         return userService.ConfirmAccount(token);
     }
 
