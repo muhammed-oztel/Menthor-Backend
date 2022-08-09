@@ -29,22 +29,26 @@ public class EventService {
     }
 
     public UserDto.Response Create(Long userId, EventEntity event){
-        UserEntity user = userRepository.getReferenceById(userId);
-        Long matchId = null;
-        if (user.getRole().toLowerCase().equals("mentor")){
-            matchId = matchRepository.findByMentorAndAndDeleted(userId, null).get(0).getId();
-        }else if (user.getRole().toLowerCase().equals("mentee")){
-            matchId = matchRepository.findByMenteeAndAndDeleted(userId, null).get(0).getId();
-        }
-        Optional<MatchEntity> isEmpty = matchRepository.findById(matchId);
-        if (!isEmpty.isEmpty()){
-            event.setMatchId(matchId);
-            eventRepository.save(event);
-            response.setMessage("Görüşme Kaydedildi.");
-            return response;
-        }else {
-            response.setMessage("Görüşme Kaydedilirken Bir Sorun Oluştu !");
-            return response;
+        try{
+            UserEntity user = userRepository.getReferenceById(userId);
+            Long matchId = null;
+            if (user.getRole().toLowerCase().equals("mentor")){
+                matchId = matchRepository.findByMentorAndAndDeleted(userId, null).get(0).getId();
+            }else if (user.getRole().toLowerCase().equals("mentee")){
+                matchId = matchRepository.findByMenteeAndAndDeleted(userId, null).get(0).getId();
+            }
+            Optional<MatchEntity> isEmpty = matchRepository.findById(matchId);
+            if (!isEmpty.isEmpty()){
+                event.setMatchId(matchId);
+                eventRepository.save(event);
+                response.setMessage("Görüşme Kaydedildi.");
+                return response;
+            }else {
+                response.setMessage("Görüşme Kaydedilirken Bir Sorun Oluştu !");
+                return response;
+            }
+        }catch(Exception e){
+            return null;
         }
     }
 
