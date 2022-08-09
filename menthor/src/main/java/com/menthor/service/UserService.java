@@ -102,7 +102,7 @@ public class UserService {
     }
 
     public List<UserEntity> ListByRole(String role){
-        return userRepository.findByRoleIgnoreCaseAndDeleted(role, false);
+        return userRepository.findByRoleIgnoreCaseAndDeleted(role, null);
     }
 
     public Optional<UserEntity> GetSingle(Long id){

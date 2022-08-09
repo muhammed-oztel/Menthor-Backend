@@ -11,6 +11,7 @@ import com.menthor.repository.UserDetailRepository;
 import com.menthor.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,5 +61,11 @@ public class AdminService {
         matchRepository.deleteById(id);
         response.setMessage("Eşleşme Silindi");
         return response;
+    }
+
+    public List[] UserListByRole(){
+        List<UserEntity> mentor = userRepository.findByRoleIgnoreCaseAndDeleted("mentor", null);
+        List<UserEntity> mentee = userRepository.findByRoleIgnoreCaseAndDeleted("mentee", null);
+        return new List[] {mentor, mentee};
     }
 }
