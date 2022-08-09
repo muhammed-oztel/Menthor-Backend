@@ -3,6 +3,7 @@ package com.menthor.controller;
 import com.menthor.dto.UserDto;
 import com.menthor.model.UserEntity;
 import com.menthor.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/confirm-account")
-    public UserDto.Response ConfirmUserAccount(@RequestParam String token){
+    public ResponseEntity<Object> ConfirmUserAccount(@RequestParam String token){
         return userService.ConfirmAccount(token);
     }
 
