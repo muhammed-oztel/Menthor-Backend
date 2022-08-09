@@ -42,6 +42,11 @@ public class AdminController {
         return adminService.DeleteMatch(matchId);
     }
 
+    @GetMapping("/allMatch")
+    public List[] AllMatch(){
+        return adminService.AllMatch();
+    }
+
 //    @GetMapping("/roleList")
 //    public List[] UserListByRole(){
 //        return adminService.UserListByRole();
