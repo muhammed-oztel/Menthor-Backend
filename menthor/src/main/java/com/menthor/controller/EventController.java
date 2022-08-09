@@ -27,9 +27,9 @@ public class EventController {
         return eventService.Update(id, event);
     }
 
-    @GetMapping("/list/{matchId}")
-    public List<EventEntity> GetList(@PathVariable Long matchId){
-        return eventService.GetList(matchId);
+    @GetMapping("/list/{userId}")
+    public List<EventEntity> GetList(@PathVariable Long userId){
+        return eventService.GetList(userId);
     }
 
     @DeleteMapping("/delete/{id}")

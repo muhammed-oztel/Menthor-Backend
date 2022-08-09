@@ -23,12 +23,12 @@ public class UserEntity {
     private String pass;
 
     @Column(name = "birth")
-    private Date birth;
+    private String birth;
 
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "picture")
+    @Column(name = "picture", length = 250000)
     private String picture;
 
     @Column(name = "role")
@@ -84,11 +84,11 @@ public class UserEntity {
         this.pass = pass;
     }
 
-    public Date getBirth() {
+    public String getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(String birth) {
         this.birth = birth;
     }
 

@@ -37,8 +37,13 @@ public class AdminController {
         return adminService.SaveMatch(matchInfo);
     }
 
-    @DeleteMapping("/deleteMatch/{id}")
-    public UserDto.Response DeleteMatch(@PathVariable Long id){
-        return adminService.DeleteMatch(id);
+    @DeleteMapping("/deleteMatch/{userId}")
+    public UserDto.Response DeleteMatch(@PathVariable Long userId){
+        return adminService.DeleteMatch(userId);
     }
+
+//    @GetMapping("/roleList")
+//    public List[] UserListByRole(){
+//        return adminService.UserListByRole();
+//    }
 }

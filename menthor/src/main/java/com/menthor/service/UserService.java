@@ -7,15 +7,17 @@ import com.menthor.model.UserEntity;
 import com.menthor.repository.ConfirmationTokenRepository;
 import com.menthor.repository.MatchRepository;
 import com.menthor.repository.UserRepository;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -52,17 +54,22 @@ public class UserService {
         }
     }
 
-    public UserDto.Response ConfirmAccount(String token){
-        ConfirmationTokenEntity tokenInfo = confirmationTokenRepository.findByToken(token);
-        if (tokenInfo != null){
-            UserEntity user = userRepository.findByEmailIgnoreCase(tokenInfo.getUser().getEmail());
-            user.setEnabled(true);
-            userRepository.save(user);
-            response.setMessage("Email Doğrulandı.");
-            return response;
-        }else {
-            response.setMessage("Email Doğrulanamadı !!");
-            return response;
+    public ResponseEntity<Object> ConfirmAccount(String token){
+        try {
+            ConfirmationTokenEntity tokenInfo = confirmationTokenRepository.findByToken(token);
+            if (tokenInfo != null){
+                UserEntity user = userRepository.findByEmailIgnoreCase(tokenInfo.getUser().getEmail());
+                user.setEnabled(true);
+                userRepository.save(user);
+                URI uri = new URI("https://menthor-frontend.vercel.app/email");
+                HttpHeaders httpHeaders = new HttpHeaders();
+                httpHeaders.setLocation(uri);
+                return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
+            }else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -95,7 +102,7 @@ public class UserService {
     }
 
     public List<UserEntity> ListByRole(String role){
-        return userRepository.findByRoleIgnoreCaseAndDeleted(role, false);
+        return userRepository.findByRoleIgnoreCaseAndDeleted(role, null);
     }
 
     public Optional<UserEntity> GetSingle(Long id){
@@ -155,14 +162,14 @@ public class UserService {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Hesap Oluşturuldu!!");
-        mailMessage.setFrom("ahmetturanmetin18@gmail.com");
+        mailMessage.setFrom("menthor.team@gmail.com");
         mailMessage.setText("Hesabınızı onaylamak için lütfen buraya tıklayın : "+
                 "http://localhost:8080/user/confirm-account?token="+confirmationToken.getToken());
         emailSenderService.sendEmail(mailMessage);
     }
 
     //change email operations..
-    public void changeEmail(UserEntity user){
+    private void changeEmail(UserEntity user){
         ConfirmationTokenEntity tokenInfo = confirmationTokenRepository.findByUserId(user.getId());
         user.setEnabled(false);
         userRepository.save(user);
