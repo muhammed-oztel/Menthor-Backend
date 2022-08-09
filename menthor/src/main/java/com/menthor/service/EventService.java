@@ -3,8 +3,11 @@ package com.menthor.service;
 import com.menthor.dto.UserDto;
 import com.menthor.model.EventEntity;
 import com.menthor.model.MatchEntity;
+import com.menthor.model.UserEntity;
 import com.menthor.repository.EventRepository;
 import com.menthor.repository.MatchRepository;
+import com.menthor.repository.UserRepository;
+import org.apache.catalina.connector.Response;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,16 +17,24 @@ import java.util.Optional;
 public class EventService {
     private final EventRepository eventRepository;
     private final MatchRepository matchRepository;
+    private final UserRepository userRepository;
     private final UserDto.Response response;
 
-    public EventService(EventRepository eventRepository, MatchRepository matchRepository) {
+    public EventService(EventRepository eventRepository, MatchRepository matchRepository, UserRepository userRepository) {
         this.eventRepository = eventRepository;
         this.matchRepository = matchRepository;
+        this.userRepository = userRepository;
         this.response = new UserDto.Response();
     }
 
     public UserDto.Response Create(Long userId, EventEntity event){
-        Long matchId = matchRepository.findByMentorOrMentee(userId, userId).getId();
+        UserEntity user = userRepository.getReferenceById(userId);
+        Long matchId = null;
+        if (user.getRole().toLowerCase().equals("mentor")){
+            matchId = matchRepository.findByMentorAndAndDeleted(userId, null).get(0).getId();
+        }else if (user.getRole().toLowerCase().equals("mentee")){
+            matchId = matchRepository.findByMenteeAndAndDeleted(userId, null).get(0).getId();
+        }
         Optional<MatchEntity> isEmpty = matchRepository.findById(matchId);
         if (!isEmpty.isEmpty()){
             event.setMatchId(matchId);
@@ -48,12 +59,22 @@ public class EventService {
     }
 
     public List<EventEntity> GetList(Long userId){
-        Long matchId = matchRepository.findByMentorOrMentee(userId, userId).getId();
-        List<EventEntity> events = eventRepository.findByMatchId(matchId);
-        if (events.isEmpty())
+        try {
+            UserEntity user = userRepository.getReferenceById(userId);
+            Long matchId = null;
+            if (user.getRole().toLowerCase().equals("mentor")){
+                matchId = matchRepository.findByMentorAndAndDeleted(userId, null).get(0).getId();
+            }else if (user.getRole().toLowerCase().equals("mentee")){
+                matchId = matchRepository.findByMenteeAndAndDeleted(userId, null).get(0).getId();
+            }
+            List<EventEntity> events = eventRepository.findByMatchId(matchId);
+            if (events.isEmpty())
+                return null;
+            else
+                return events;
+        }catch (Exception ex){
             return null;
-        else
-            return events;
+        }
     }
 
     public UserDto.Response Delete(Long id){

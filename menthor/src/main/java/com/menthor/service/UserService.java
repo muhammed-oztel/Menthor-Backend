@@ -146,11 +146,21 @@ public class UserService {
     }
 
     public UserDto.Response DeleteMatch(Long userId){
-        MatchEntity match = matchRepository.findByMentorOrMentee(userId, userId);
-        match.setDeleted(new Date());
-        matchRepository.save(match);
-        response.setMessage("Eşleşme Silindi");
-        return response;
+        try {
+            UserEntity user = userRepository.getReferenceById(userId);
+            MatchEntity match = null;
+            if (user.getRole().toLowerCase().equals("mentor")){
+                match = matchRepository.findByMentorAndAndDeleted(userId, null).get(0);
+            }else if (user.getRole().toLowerCase().equals("mentee")){
+                match = matchRepository.findByMenteeAndAndDeleted(userId, null).get(0);
+            }
+            match.setDeleted(new Date());
+            matchRepository.save(match);
+            response.setMessage("Eşleşme Silindi");
+            return response;
+        }catch (Exception ex){
+            return null;
+        }
     }
 
     //validations..
