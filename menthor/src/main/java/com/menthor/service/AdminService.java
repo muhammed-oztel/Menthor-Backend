@@ -11,7 +11,6 @@ import com.menthor.repository.UserDetailRepository;
 import com.menthor.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -57,8 +56,7 @@ public class AdminService {
 //        }
     }
 
-    public UserDto.Response DeleteMatch(Long userId){
-        Long matchId = matchRepository.findByMentorOrMentee(userId, userId).getId();
+    public UserDto.Response DeleteMatch(Long matchId){
         MatchEntity match = matchRepository.getReferenceById(matchId);
         match.setDeleted(new Date());
         matchRepository.save(match);
