@@ -47,8 +47,13 @@ public class EventService {
         return response;
     }
 
-    public List<EventEntity> GetList(Long matchId){
-        return eventRepository.findByMatchId(matchId);
+    public List<EventEntity> GetList(Long userId){
+        Long matchId = matchRepository.findByMentorOrMentee(userId, userId).getId();
+        List<EventEntity> events = eventRepository.findByMatchId(matchId);
+        if (events.isEmpty())
+            return null;
+        else
+            return events;
     }
 
     public UserDto.Response Delete(Long id){
