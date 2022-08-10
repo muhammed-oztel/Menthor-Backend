@@ -58,12 +58,23 @@ public class AdminService {
 //        }
     }
 
-    public UserDto.Response DeleteMatch(Long matchId){
-        MatchEntity match = matchRepository.getReferenceById(matchId);
-        match.setDeleted(new Date());
-        matchRepository.save(match);
-        response.setMessage("Eşleşme Silindi");
-        return response;
+    public UserDto.Response DeleteMatch(Long userId){
+        try {
+            UserEntity user = userRepository.getReferenceById(userId);
+            Long matchId = null;
+            if (user.getRole().toLowerCase().equals("mentor")){
+                matchId = matchRepository.findByMentorAndAndDeleted(userId, null).get(0).getId();
+            }else if (user.getRole().toLowerCase().equals("mentee")){
+                matchId = matchRepository.findByMenteeAndAndDeleted(userId, null).get(0).getId();
+            }
+            MatchEntity match = matchRepository.getReferenceById(matchId);
+            match.setDeleted(new Date());
+            matchRepository.save(match);
+            response.setMessage("Eşleşme Silindi");
+            return response;
+        }catch (Exception ex){
+            return null;
+        }
     }
 
     public List[] AllMatch(){
