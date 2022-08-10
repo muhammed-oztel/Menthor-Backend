@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -37,7 +39,7 @@ public class AttachmentServiceImpl implements AttachmentService{
             if(fileName.contains("..")){
                 throw new Exception("Filename contains invalid path sequence" + fileName);
             }
-            Attachment attachment = new Attachment(uploader_id,fileName, file.getContentType(),file.getBytes(), LocalDateTime.now());
+            Attachment attachment = new Attachment(uploader_id,fileName, file.getContentType(),file.getBytes(), ZonedDateTime.now(ZoneId.of("Turkey")));
             return attachmentRepository.save(attachment);
 
         }catch(Exception e){
