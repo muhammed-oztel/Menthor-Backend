@@ -81,10 +81,10 @@ public class AdminService {
     public List<AdminDto.MatchResp> AllMatch(){
         List<MatchEntity> matches = matchRepository.findAll();
         List<AdminDto.MatchResp> response = new ArrayList<AdminDto.MatchResp>();
-        AdminDto.MatchResp infos = new AdminDto.MatchResp();
         Optional<UserEntity> mentee = null;
         Optional<UserEntity> mentor = null;
         for (int i=0;i<matches.size();++i){
+            AdminDto.MatchResp infos = new AdminDto.MatchResp();
             mentee = userRepository.findById(matches.get(i).getMentee());
             mentor = userRepository.findById(matches.get(i).getMentor());
             infos.setMatchId(matches.get(i).getId());
