@@ -16,6 +16,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -45,7 +47,7 @@ public class AttachmentController {
                 downloadURL,
                 file.getContentType(),
                 file.getSize(),
-                LocalDateTime.now(),
+                ZonedDateTime.now(ZoneId.of("Turkey")),
                 "You have successfully uploaded the file."
         );
     }

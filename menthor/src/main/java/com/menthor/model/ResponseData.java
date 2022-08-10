@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +21,7 @@ public class ResponseData {
     private String downloadURL;
     private String fileType;
     private long fileSize;
-    private LocalDateTime localDateTime;
+    private ZonedDateTime zonedDateTime;
     private String message;
 
 
