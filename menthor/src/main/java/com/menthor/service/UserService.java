@@ -178,7 +178,7 @@ public class UserService {
         mailMessage.setSubject("Hesap Oluşturuldu!!");
         mailMessage.setFrom("menthor.team@gmail.com");
         mailMessage.setText("Hesabınızı onaylamak için lütfen buraya tıklayın : "+
-                "http://93.115.79.25:8080/user/confirm-account?token="+confirmationToken.getToken());
+                "https://menthor-backend.herokuapp.com/user/confirm-account?token="+confirmationToken.getToken());
         emailSenderService.sendEmail(mailMessage);
     }
 
