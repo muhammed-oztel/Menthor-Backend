@@ -123,30 +123,44 @@ public class UserService {
     }
 
     public Optional<UserEntity> Panel(Long userId){
-        UserEntity user1 = userRepository.getReferenceById(userId);
-        if (user1.getRole().toLowerCase().equals("mentor")){
-            MatchEntity match = matchRepository.findByMentor(userId).get(0);
-            if (match.getDeleted() == null){
-                Optional<UserEntity> user2 = userRepository.findById(match.getMentee());
-                return user2;
-            }else
-                return null;
-        }else {
-            MatchEntity match = matchRepository.findByMentee(userId).get(0);
-            if (match.getDeleted() == null){
-                Optional<UserEntity> user2 = userRepository.findById(match.getMentor());
-                return user2;
-            }else
-                return null;
+        try {
+            UserEntity user1 = userRepository.getReferenceById(userId);
+            if (user1.getRole().toLowerCase().equals("mentor")){
+                MatchEntity match = matchRepository.findByMentorAndAndDeleted(userId, null).get(0);
+                if (match != null){
+                    Optional<UserEntity> user2 = userRepository.findById(match.getMentee());
+                    return user2;
+                }else
+                    return null;
+            }else {
+                MatchEntity match = matchRepository.findByMenteeAndAndDeleted(userId, null).get(0);
+                if (match != null){
+                    Optional<UserEntity> user2 = userRepository.findById(match.getMentor());
+                    return user2;
+                }else
+                    return null;
+            }
+        }catch (Exception ex){
+            return null;
         }
     }
 
     public UserDto.Response DeleteMatch(Long userId){
-        MatchEntity match = matchRepository.findByMentorOrMentee(userId, userId);
-        match.setDeleted(new Date());
-        matchRepository.save(match);
-        response.setMessage("Eşleşme Silindi");
-        return response;
+        try {
+            UserEntity user = userRepository.getReferenceById(userId);
+            MatchEntity match = null;
+            if (user.getRole().toLowerCase().equals("mentor")){
+                match = matchRepository.findByMentorAndAndDeleted(userId, null).get(0);
+            }else if (user.getRole().toLowerCase().equals("mentee")){
+                match = matchRepository.findByMenteeAndAndDeleted(userId, null).get(0);
+            }
+            match.setDeleted(new Date());
+            matchRepository.save(match);
+            response.setMessage("Eşleşme Silindi");
+            return response;
+        }catch (Exception ex){
+            return null;
+        }
     }
 
     //validations..
