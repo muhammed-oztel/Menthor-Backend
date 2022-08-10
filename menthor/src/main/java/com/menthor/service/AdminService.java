@@ -59,15 +59,8 @@ public class AdminService {
 //        }
     }
 
-    public UserDto.Response DeleteMatch(Long userId){
+    public UserDto.Response DeleteMatch(Long matchId){
         try {
-            UserEntity user = userRepository.getReferenceById(userId);
-            Long matchId = null;
-            if (user.getRole().toLowerCase().equals("mentor")){
-                matchId = matchRepository.findByMentorAndAndDeleted(userId, null).get(0).getId();
-            }else if (user.getRole().toLowerCase().equals("mentee")){
-                matchId = matchRepository.findByMenteeAndAndDeleted(userId, null).get(0).getId();
-            }
             MatchEntity match = matchRepository.getReferenceById(matchId);
             match.setDeleted(new Date());
             matchRepository.save(match);
@@ -87,10 +80,12 @@ public class AdminService {
             AdminDto.MatchResp infos = new AdminDto.MatchResp();
             mentee = userRepository.findById(matches.get(i).getMentee());
             mentor = userRepository.findById(matches.get(i).getMentor());
-            infos.setMatchId(matches.get(i).getId());
-            infos.setMentor(mentor.get().getName()+" "+mentor.get().getSurname());
-            infos.setMentee(mentee.get().getName()+" "+mentee.get().getSurname());
-            response.add(infos);
+            if (matches.get(i).getDeleted() == null){
+                infos.setMatchId(matches.get(i).getId());
+                infos.setMentor(mentor.get().getName()+" "+mentor.get().getSurname());
+                infos.setMentee(mentee.get().getName()+" "+mentee.get().getSurname());
+                response.add(infos);
+            }
         }
         return response;
     }
