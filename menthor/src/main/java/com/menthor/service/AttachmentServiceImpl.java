@@ -39,7 +39,7 @@ public class AttachmentServiceImpl implements AttachmentService{
             if(fileName.contains("..")){
                 throw new Exception("Filename contains invalid path sequence" + fileName);
             }
-            Attachment attachment = new Attachment(uploader_id,fileName, file.getContentType(),file.getBytes(), ZonedDateTime.now(ZoneId.of("Turkey")));
+            Attachment attachment = new Attachment(uploader_id,fileName, file.getContentType(),file.getBytes(), ZonedDateTime.now(ZoneId.of("Turkey")).toString());
             return attachmentRepository.save(attachment);
 
         }catch(Exception e){
