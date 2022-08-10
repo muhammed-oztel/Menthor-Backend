@@ -1,5 +1,6 @@
 package com.menthor.controller;
 
+import com.menthor.dto.AdminDto;
 import com.menthor.dto.UserDto;
 import com.menthor.model.*;
 import com.menthor.service.AdminService;
@@ -43,7 +44,7 @@ public class AdminController {
     }
 
     @GetMapping("/allMatch")
-    public List[] AllMatch(){
+    public List<AdminDto.MatchResp> AllMatch(){
         return adminService.AllMatch();
     }
 
