@@ -1,5 +1,6 @@
 package com.menthor.service;
 
+import com.menthor.dto.AdminDto;
 import com.menthor.dto.UserDto;
 import com.menthor.model.FileEntity;
 import com.menthor.model.MatchEntity;
@@ -77,19 +78,21 @@ public class AdminService {
         }
     }
 
-    public List[] AllMatch(){
+    public List<AdminDto.MatchResp> AllMatch(){
         List<MatchEntity> matches = matchRepository.findAll();
-        List<UserEntity> mentees = new ArrayList<UserEntity>();
-        List<UserEntity> mentors = new ArrayList<UserEntity>();
+        List<AdminDto.MatchResp> response = new ArrayList<AdminDto.MatchResp>();
+        AdminDto.MatchResp infos = new AdminDto.MatchResp();
         Optional<UserEntity> mentee = null;
         Optional<UserEntity> mentor = null;
         for (int i=0;i<matches.size();++i){
             mentee = userRepository.findById(matches.get(i).getMentee());
             mentor = userRepository.findById(matches.get(i).getMentor());
-            mentees.add(mentee.get());
-            mentors.add(mentor.get());
+            infos.setMatchId(matches.get(i).getId());
+            infos.setMentor(mentor.get().getName()+" "+mentor.get().getSurname());
+            infos.setMentee(mentee.get().getName()+" "+mentee.get().getSurname());
+            response.add(infos);
         }
-        return new List[]{mentees, mentors};
+        return response;
     }
 
 //    public List[] UserListByRole(){
