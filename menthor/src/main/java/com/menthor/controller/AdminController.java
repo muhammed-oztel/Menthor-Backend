@@ -37,9 +37,9 @@ public class AdminController {
         return adminService.SaveMatch(matchInfo);
     }
 
-    @DeleteMapping("/deleteMatch/{matchId}")
-    public UserDto.Response DeleteMatch(@PathVariable Long matchId){
-        return adminService.DeleteMatch(matchId);
+    @DeleteMapping("/deleteMatch/{userId}")
+    public UserDto.Response DeleteMatch(@PathVariable Long userId){
+        return adminService.DeleteMatch(userId);
     }
 
     @GetMapping("/allMatch")
