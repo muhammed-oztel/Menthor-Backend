@@ -4,13 +4,15 @@ package com.menthor.service;
  */
 
 import com.menthor.model.Attachment;
+import com.menthor.model.UserEntity;
 import com.menthor.repository.AttachmentRepository;
+import com.menthor.repository.MatchRepository;
+import com.menthor.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,9 +20,13 @@ import java.util.List;
 public class AttachmentServiceImpl implements AttachmentService{
 
     private AttachmentRepository attachmentRepository;
+    private final UserRepository userRepository;
+    private final MatchRepository matchRepository;
 
-    public AttachmentServiceImpl(AttachmentRepository attachmentRepository) {
+    public AttachmentServiceImpl(AttachmentRepository attachmentRepository, UserRepository userRepository, MatchRepository matchRepository) {
         this.attachmentRepository = attachmentRepository;
+        this.userRepository = userRepository;
+        this.matchRepository = matchRepository;
     }
 
     @Override
@@ -59,5 +65,20 @@ public class AttachmentServiceImpl implements AttachmentService{
     @Override
     public List<Attachment> getFiles(String uploader_id){
         return attachmentRepository.findbyUploaderId(uploader_id);
+    }
+
+    public Long GetMatchId(Long userId){
+        try {
+            UserEntity user = userRepository.getReferenceById(userId);
+            Long matchId = null;
+            if (user.getRole().toLowerCase().equals("mentor")){
+                matchId = matchRepository.findByMentorAndAndDeleted(userId, null).get(0).getId();
+            }else if (user.getRole().toLowerCase().equals("mentee")){
+                matchId = matchRepository.findByMenteeAndAndDeleted(userId, null).get(0).getId();
+            }
+            return matchId;
+        }catch (Exception ex){
+            return null;
+        }
     }
 }

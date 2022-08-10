@@ -16,4 +16,6 @@ public interface AttachmentService {
     List<Attachment> getFiles(String uploader_id);
 
     void deleteFile(Long id);
+
+    Long GetMatchId(Long userId);
 }

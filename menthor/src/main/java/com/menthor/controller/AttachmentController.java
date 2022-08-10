@@ -75,4 +75,8 @@ public class AttachmentController {
         return attachmentService.getFiles(uploader_id);
     }
 
+    @GetMapping("/getMatchId/{userId}")
+    public Long GetMatchId(@PathVariable Long userId){
+        return attachmentService.GetMatchId(userId);
+    }
 }
