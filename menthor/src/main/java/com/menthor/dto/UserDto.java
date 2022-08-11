@@ -12,4 +12,34 @@ public class UserDto {
             this.message = message;
         }
     }
+
+    public static class RatingResp{
+        private Double userRating;
+        private String nameSurname;
+        private String picture;
+
+        public Double getUserRating() {
+            return userRating;
+        }
+
+        public void setUserRating(Double userRating) {
+            this.userRating = userRating;
+        }
+
+        public String getNameSurname() {
+            return nameSurname;
+        }
+
+        public void setNameSurname(String nameSurname) {
+            this.nameSurname = nameSurname;
+        }
+
+        public String getPicture() {
+            return picture;
+        }
+
+        public void setPicture(String picture) {
+            this.picture = picture;
+        }
+    }
 }

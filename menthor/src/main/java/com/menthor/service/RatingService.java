@@ -1,22 +1,29 @@
 package com.menthor.service;
 
+import com.menthor.dto.UserDto;
 import com.menthor.model.Rating;
+import com.menthor.model.UserEntity;
 import com.menthor.repository.RatingRepository;
+import com.menthor.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RatingService {
 
     private final RatingRepository ratingRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public RatingService(RatingRepository ratingRepository) {
+    public RatingService(RatingRepository ratingRepository, UserRepository userRepository) {
         this.ratingRepository = ratingRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -51,7 +58,22 @@ public class RatingService {
 
     }
 
-    public List<Rating> listRatingService() {
-        return ratingRepository.findRatingList(PageRequest.of(0,5));
+    public List<UserDto.RatingResp> listRatingService() {
+        try {
+            List<Rating> ratingList = ratingRepository.findRatingList(PageRequest.of(0,5));
+            List<UserDto.RatingResp> response = new ArrayList<UserDto.RatingResp>();
+            Optional<UserEntity> user;
+            for (int i=0;i<ratingList.size();++i){
+                UserDto.RatingResp rating = new UserDto.RatingResp();
+                user = userRepository.findById(ratingList.get(i).getUserId());
+                rating.setUserRating(ratingList.get(i).getUserRating());
+                rating.setNameSurname(user.get().getName()+" "+user.get().getSurname());
+                rating.setPicture(user.get().getPicture());
+                response.add(rating);
+            }
+            return response;
+        }catch (Exception ex){
+            return null;
+        }
     }
 }
