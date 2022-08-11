@@ -1,5 +1,6 @@
 package com.menthor.controller;
 
+import com.menthor.dto.UserDto;
 import com.menthor.model.Rating;
 import com.menthor.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class RatingController {
     }
 
     @GetMapping("/listRating")
-    public List<Rating> listRatings(){
+    public List<UserDto.RatingResp> listRatings(){
         return ratingService.listRatingService();
     }
 }
