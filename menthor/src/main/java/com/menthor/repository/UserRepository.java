@@ -15,4 +15,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     public List<UserEntity> findByRoleIgnoreCaseAndDeleted(String role, Date deleted);
     public List<UserEntity> findByNameContainingIgnoreCaseAndRoleIgnoreCase(String name, String role);
     public List<UserEntity> findBySurnameContainingIgnoreCaseAndRoleIgnoreCase(String surname, String role);
+
+    public List<UserEntity> findAllByAndDeleted(Date deleted);
 }
