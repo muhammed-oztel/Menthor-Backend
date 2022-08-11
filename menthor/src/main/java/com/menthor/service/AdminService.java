@@ -34,20 +34,24 @@ public class AdminService {
     }
 
     public List<UserEntity> AllUser(){
-        List<UserEntity> allUser = userRepository.findAllByAndDeleted(null);
+        try {
+            List<UserEntity> allUser = userRepository.findAllByAndDeleted(null);
 //        List<MatchEntity> allMatch = matchRepository.findAllByAndDeleted(null);
-        for (int i=0;i<allUser.size();++i){
-            UserEntity user = userRepository.getReferenceById(allUser.get(i).getId());
-            List<MatchEntity> match = null;
-            if (user.getRole().toLowerCase().equals("mentor")){
-                match = matchRepository.findByMentorAndAndDeleted(allUser.get(i).getId(), null);
-            }else if (user.getRole().toLowerCase().equals("mentee")){
-                match = matchRepository.findByMenteeAndAndDeleted(allUser.get(i).getId(), null);
+            for (int i=0;i<allUser.size();++i){
+                UserEntity user = userRepository.getReferenceById(allUser.get(i).getId());
+                List<MatchEntity> match = null;
+                if (user.getRole().toLowerCase().equals("mentor")){
+                    match = matchRepository.findByMentorAndAndDeleted(allUser.get(i).getId(), null);
+                }else if (user.getRole().toLowerCase().equals("mentee")){
+                    match = matchRepository.findByMenteeAndAndDeleted(allUser.get(i).getId(), null);
+                }
+                if (!match.isEmpty())
+                    allUser.remove(i);
             }
-            if (!match.isEmpty())
-                allUser.remove(i);
+            return allUser;
+        }catch (Exception ex){
+            return null;
         }
-        return allUser;
     }
 
     public List<UserDetailEntity> AllUserDetail(){
