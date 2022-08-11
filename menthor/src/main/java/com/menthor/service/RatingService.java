@@ -3,6 +3,7 @@ package com.menthor.service;
 import com.menthor.model.Rating;
 import com.menthor.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -48,5 +49,9 @@ public class RatingService {
 
         return ratingRepository.findByUserId(userId);
 
+    }
+
+    public List<Rating> listRatingService() {
+        return ratingRepository.findRatingList(PageRequest.of(0,5));
     }
 }
