@@ -36,19 +36,19 @@ public class AdminService {
     public List<UserEntity> AllUser(){
         try {
             List<UserEntity> allUser = userRepository.findAllByAndDeleted(null);
-//        List<MatchEntity> allMatch = matchRepository.findAllByAndDeleted(null);
-            for (int i=0;i<allUser.size();++i){
+            List<UserEntity> response = new ArrayList<UserEntity>();
+            for (int i=0; i < allUser.size();++i){
                 UserEntity user = userRepository.getReferenceById(allUser.get(i).getId());
-                List<MatchEntity> match = null;
+                List<MatchEntity> match = new ArrayList<>();
                 if (user.getRole().toLowerCase().equals("mentor")){
                     match = matchRepository.findByMentorAndAndDeleted(allUser.get(i).getId(), null);
                 }else if (user.getRole().toLowerCase().equals("mentee")){
                     match = matchRepository.findByMenteeAndAndDeleted(allUser.get(i).getId(), null);
                 }
-                if (!match.isEmpty())
-                    allUser.remove(i);
+                if (match.isEmpty())
+                    response.add(allUser.get(i));
             }
-            return allUser;
+            return response;
         }catch (Exception ex){
             return null;
         }
