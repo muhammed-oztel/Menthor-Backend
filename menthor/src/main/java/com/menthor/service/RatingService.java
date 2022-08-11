@@ -73,7 +73,7 @@ public class RatingService {
             }
             return response;
         }catch (Exception ex){
-            return null;
+            throw ex;
         }
     }
 }
