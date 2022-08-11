@@ -37,4 +37,9 @@ public class RatingController {
     public List<Rating> getRatings(@PathVariable Long userId){
         return ratingService.getRatingsService(userId);
     }
+
+    @GetMapping("/listRating")
+    public List<Rating> listRatings(){
+        return ratingService.listRatingService();
+    }
 }
